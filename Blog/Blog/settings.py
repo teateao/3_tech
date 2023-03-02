@@ -143,16 +143,18 @@ CORS_ORIGIN_WHITELIST = [
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.AllowAny',
-        'rest_framework.permissions.IsAuthenticated',
+        # 'rest_framework.permissions.AllowAny',
+        # 'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        # 'TokenAuthentication',
     ),
 }
 
 THIRD_PARTY_APPS = [
     'rest_framework',
-    'rest_framework.authtoken'  # Tokenテーブルを作成するためのアプリか? JWTを使うときも必要か？
+    'rest_framework.authtoken',
 ]

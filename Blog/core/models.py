@@ -70,12 +70,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         return f"{self.username},{self.password},{self.email}"
 
 class Article(models.Model):
-    # 記事のタイトル
     title = models.CharField(max_length=200)
     numbers = models.CharField(max_length=200)
-    # 記事の本文
     body = models.TextField()
-    # 記事を書いた人
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    seikaku = models.CharField(max_length=10,default="null,null")
     def __str__(self):
         return f"{self.title},{self.user}"

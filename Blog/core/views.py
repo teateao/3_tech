@@ -8,9 +8,7 @@ from django.contrib.auth.hashers import check_password
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
-# Create your views here.
-
+from rest_framework.decorators import authentication_classes, permission_classes
 
 class AccountCreateView(View):
     def __init__(self):
@@ -56,8 +54,6 @@ class AccountLoginView(View):
 
 
 class ArticleApiView(APIView):
-    # authentication_classes = []
-    # permission_classes = []
     def get(self, request):
         articles = Article.objects.all()
         dict_articles = []
@@ -71,7 +67,6 @@ class ArticleApiView(APIView):
             "articles": dict_articles,
         }
         return JsonResponse(json)
-    @api_view(['POST'])
     @authentication_classes([TokenAuthentication])
     @permission_classes([IsAuthenticated])
     def post(self, request):
@@ -81,12 +76,14 @@ class ArticleApiView(APIView):
                 title=json_dict["title"],
                 body=json_dict["body"],
                 number=json_dict["number"],
-                user=request.user
+                seikaku=json_dict["seikaku"],
+                user=request.user,
             )
             article.save()
-        except:
+        except Exception as e:
             return JsonResponse({
                 'is_error':True,
+                'error':e
             })
         return JsonResponse({
             'is_error':False
