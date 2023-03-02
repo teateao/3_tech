@@ -75,5 +75,5 @@ class Article(models.Model):
     body = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     seikaku = models.CharField(max_length=10,default="null,null")
-    def __str__(self):
-        return f"{self.title},{self.user}"
+    # def __str__(self):
+    #     return f"{self.title}"
